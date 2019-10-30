@@ -121,8 +121,9 @@ class StateGenerator:
         t_graphic = "[{}] -> {}, {} / ".format(state.name, transition.entry, transition.extract)
 
        #pintando transicion
-        self.window.label_transition.set(transition.get())
 
+        self.window.label_transition.set(transition.get())
+        self.window.label_state.set(f'{state.name} --> {edge.next_state.name}')
 
 #pintando la palabra
 
@@ -130,7 +131,7 @@ class StateGenerator:
         size = len(self.word) - len(word)
         print(size)
         for i in range(size):
-            self.window.paint.create_rectangle(400 + b, 60, 430 + b, 90, fill='red')
+            self.window.paint.create_rectangle(400 + b, 60, 430 + b, 90, fill='blue')
             self.window.paint.create_text(415 + b, 75, text=self.word[i], font=('calibri', 18))
             b = b+30
 
@@ -169,7 +170,7 @@ class StateGenerator:
         items = self.window.paint.find_withtag(edge.next_state.name)
         for i in range(0, len(items)):
             if i != 1:
-                self.window.paint.itemconfigure(items[i], fill='red')
+                self.window.paint.itemconfigure(items[i], fill='blue')
 
         if transition is None:
             return False

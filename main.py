@@ -14,20 +14,23 @@ class MainWindow:
 
     def __init__(self):
         self.root = Tk()
+        self.root.resizable(0,0)
         self.root.title('Automata palindromo impar')
         self.root.geometry("{}x{}".format(self.WIDTH, self.HEIGHT))
+
 
         self.paint = Canvas(self.root, width=self.WIDTH, height=self.HEIGHT)
         self.paint.place(x=-1, y=70)
 
         self.text_entry = StringVar()
         self.label_transition =StringVar()
+        self.label_state = StringVar()
         self.text_entry.set("abbcbba")
 
         Entry(self.root, width=40, textvariable=self.text_entry).place(x=305, y=15)
         Button(self.root, text='Validar', command=self.on_click_validate).place(x=631, y=10)
-        Label(self.root,textvariable=self.label_transition,bg='red',font=('calibri',18)).place(x=450,y=250)
-
+        Label(self.root,textvariable=self.label_transition,bg='blue',font=('calibri',18)).place(x=450,y=250)
+        Label(self.root, textvariable=self.label_state, bg='blue', font=('calibri', 18)).place(x=450, y=290)
 
         Button(self.root, text='Visualizar Lento', command=lambda: self.on_click_show_validate(1)).place(x=370, y=90)
         Button(self.root, text='Visualizar Rapido', command=lambda: self.on_click_show_validate(2)).place(x=510, y=90)
@@ -80,18 +83,13 @@ class MainWindow:
         self.paint.create_text(675, 465, text='#', font=('calibri', 18))
 
 
-
-
-
-
-
-
     def run(self):
         self.root.mainloop()
 
     def on_click_validate(self):
         self.paint.delete('all')
         self.label_transition.set('')
+        self.label_state.set('')
         self.init_components()
         state_generator.set_word(self.text_entry.get())
         state_generator.exec()
